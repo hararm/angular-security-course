@@ -13,9 +13,9 @@ export const ANONYMOUS_USER: User = {
 @Injectable()
 export class AuthService {
 
-    private subject = new BehaviorSubject<User>(ANONYMOUS_USER);
+    private subject = new BehaviorSubject<User>(undefined);
 
-    user$: Observable<User> = this.subject.asObservable();
+    user$: Observable<User> = this.subject.asObservable().filter(user => !!user);
 
     isLoggedIn$: Observable<boolean> = this.user$.map(user => !!user.id);
 
