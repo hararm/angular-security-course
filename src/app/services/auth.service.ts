@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import {User} from "../model/user";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {User} from '../model/user';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export const ANONYMOUS_USER: User = {
     id: undefined,
     email: ''
-}
+};
 
 
 @Injectable()
@@ -22,11 +22,12 @@ export class AuthService {
     isLoggedOut$: Observable<boolean> = this.isLoggedIn$.map(isLoggedIn => !isLoggedIn);
 
     constructor(private http: HttpClient) {
-
+        http.get<User>('/api/user')
+          .subscribe( user => this.subject.next(user ? user : ANONYMOUS_USER));
 
     }
 
-    signUp(email:string, password:string ) {
+    signUp(email: string, password: string ) {
 
         return this.http.post<User>('/api/signup', {email, password})
             .shareReplay()

@@ -29,6 +29,6 @@ async function createUserAndSession(res: Response, credentials ) {
   const sessionId = await randomBytes(32).then(bytes => bytes.toString());
   console.log('sessionId', sessionId);
   sessionStore.createSession(sessionId, user);
-  res.cookie('SESSIONID', sessionId);
+  res.cookie('SESSIONID', sessionId, {httpOnly: true});
   res.status(200).json({id: user.id, email: user.email});
 }
