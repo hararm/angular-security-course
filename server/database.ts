@@ -12,12 +12,12 @@ class InMemoryDatabase {
         return _.values(LESSONS);
     }
 
-    createUser(email:string,passwordDigest:string) {
+    createUser(email: string, passwordDigest: string) {
 
-        const usersPerEmail = _.keyBy( _.values(USERS), "email" );
+        const usersPerEmail = _.keyBy( _.values(USERS), 'email' );
 
         if (usersPerEmail[email]) {
-            const message = "An user already exists with email " + email;
+            const message = 'An user already exists with email ' + email;
             console.error(message);
             throw new Error(message);
         }
@@ -40,12 +40,12 @@ class InMemoryDatabase {
     }
 
 
-    findUserByEmail(email:string) :DbUser {
+  findUserByEmail(email: string): DbUser {
 
-        const users = _.values(USERS);
+    const users = _.values(USERS);
 
-        return _.find(users, user => user.email === email);
-    }
+    return _.find(users, user => user.email === email);
+  }
 
 }
 
